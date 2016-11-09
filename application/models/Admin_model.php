@@ -27,6 +27,10 @@ class Admin_model extends CI_Model {
 
     public function save_department_db($depart_array) {
         $this->db->insert('department', $depart_array);
+        $department_id = $this->db->insert_id();
+        
+        $depart_array['department_id'] = $department_id;        
+        return $depart_array;
     }
 
     /* Update the department in the database
@@ -35,6 +39,9 @@ class Admin_model extends CI_Model {
     public function update_department_db($depart_array, $id) {
         $this->db->where('department_id', $id);
         $this->db->update('department', $depart_array);
+        
+        $depart_array['department_id'] = $id;        
+        return $depart_array;
     }
 
     /* Delete the department from the database

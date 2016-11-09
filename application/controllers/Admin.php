@@ -10,7 +10,7 @@ class Admin extends CI_Controller {
      * ********************************************************************************************** */
 
     public function check_session() {
-        if (!$this->session->user_id) {
+        if (!$this->session->user_id || $this->session->login_type !== 'admin') {
             redirect('Main_controller/index');
         }
     }
@@ -69,11 +69,13 @@ class Admin extends CI_Controller {
         );
 
         if (empty($this->input->post('department_id'))) {
-            $this->Admin_model->save_department_db($depart_array);
+            $result = $this->Admin_model->save_department_db($depart_array);            
+            echo json_encode($result);
         } else {
             $id = intval($this->validate_fields($this->input->post('department_id')));
 
-            $this->Admin_model->update_department_db($depart_array, $id);
+            $result = $this->Admin_model->update_department_db($depart_array, $id);
+            echo json_encode($result);
         }
     }
 
@@ -102,5 +104,15 @@ class Admin extends CI_Controller {
             echo json_encode(array());
         }
     }
-
+    
+    /* Load the patient page.
+     * *************************/
+    
+    public function patients(){
+        $this->check_session();
+        
+        ## Load the header.
+        $this->load_header();
+        $this->load->view('main_app/patients');
+    }
 }

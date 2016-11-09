@@ -71,7 +71,6 @@ $(function () {
 
         $(this).focus();
     });
-
 });
 
 /* Refresh the datagrid
@@ -83,3 +82,37 @@ function refresh(dg) {
     }, 800);
 }
 
+/* This function will be used to load the images into the page after its selected.
+ * ********************************************************************************/
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.user_picture').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function myformatter(date) {
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
+}
+
+function myparser(s) {
+    if (!s)
+        return new Date();
+    var ss = (s.split('-'));
+    var y = parseInt(ss[0], 10);
+    var m = parseInt(ss[1], 10);
+    var d = parseInt(ss[2], 10);
+    if (!isNaN(y) && !isNaN(m) && !isNaN(d)) {
+        return new Date(y, m - 1, d);
+    } else {
+        return new Date();
+    }
+}

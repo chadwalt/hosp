@@ -171,20 +171,103 @@ class Main_model extends CI_Model {
     public function reset_password_db($username) {
         ## First check if the user exists in the database.
         if ($this->username_check($username, 'users')) {
-            return array('success' => FALSE, 'msg'=> 'Username does not exist');
+            return array('success' => FALSE, 'msg' => 'Username does not exist');
         }
-        
+
         ## Encrypt the username.
         $password = $this->encryption->encrypt($username);
-        
+
         ## Then deactivate the user in the database and also reset the password.
         $update_query = $this->db->query("UPDATE users SET active_status = 1, password='$password' WHERE username = '$username'");
-        
-        if ($update_query){
-            return array('success' => TRUE, 'msg'=> 'Password reset successful. Please contact Admin to activate your account.');
+
+        if ($update_query) {
+            return array('success' => TRUE, 'msg' => 'Password reset successful. Please contact Admin to activate your account.');
         } else {
-            return array('success' => TRUE, 'msg'=> 'Error while processing the request. Please try again later.');
+            return array('success' => TRUE, 'msg' => 'Error while processing the request. Please try again later.');
         }
     }
 
+    /* Return all patients in the database to the calling method.
+     * ********************************************************* */
+
+    public function get_patients_db($page, $rows) {
+        $offset = ($page - 1) * $rows;
+
+        $this->db->limit($rows, $offset);
+        $query = $this->db->get('patient');
+        return $query->result();
+    }
+
+    /* Saves patient in the database 
+     * @param patient_data. Array-> Containing patient's data
+     * ******************************************************** */
+
+    public function save_patient_db($patient_data) {
+        $query = $this->db->insert('patient', $patient_data);
+
+        if ($query) {
+            return array('success' => TRUE, 'msg' => 'Patient successfully added to system');
+        } else {
+            return array('success' => FALSE, 'msg' => 'Patient not added to the system. Please try again later.');
+        }
+    }
+
+    /* Update patient in the database 
+     * @param patient_data. Array-> Containing patient's data
+     * @param id. Int -> Containing the patient id.
+     * ******************************************************** */
+
+    public function update_patient_db($patient_data, $id) {
+        ## Get the old picture.
+        $pic_query = $this->db->query("SELECT picture FROM patient WHERE patient_id = $id");
+        if (!empty($pic_query->row()->picture) && !empty($patient_data['picture'])) {
+            $snap = $pic_query->row()->picture;
+            if (file_exists("./patients_pictures/$snap")) {
+                unlink("./patients_pictures/$snap");
+            }
+        }
+
+        $this->db->where('patient_id', $id);
+        $query = $this->db->update('patient', $patient_data);
+
+        if ($query) {
+            return array('success' => TRUE, 'msg' => 'Patient successfully updated in the system');
+        } else {
+            return array('success' => FALSE, 'msg' => 'Patient cannot be updated in the system. Please try again later.');
+        }
+    }
+
+    /* This function will be used to delete patients from the system.
+     * ************************************************************ */
+
+    public function delete_patient_db($patient_id) {
+        //$query = $this->db->query("DELETE FROM patient WHERE patient_id = $patient_id");
+        $this->db->where('patient_id', $patient_id);
+        $query = $this->db->delete('patient');
+
+        if ($query) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /* Search through the database to the user details.
+     * *************************************************** */
+
+    function search_patient_db($search_item, $page, $rows) {
+        $offset = ($page - 1) * $rows;
+        
+        if (!empty($search_item)) {
+            $query = $this->db->query("SELECT * FROM patient  WHERE (name LIKE '%$search_item%') OR (email LIKE '%$search_item%')  OR (address LIKE '%$search_item%') LIMIT $offset, $rows");
+            
+            if ($query) {
+                return $query->result_array();
+            } else {
+                return FALSE;
+            }
+        } else {
+            return $this->get_patients_db($page, $rows);
+        }
+    }
 }

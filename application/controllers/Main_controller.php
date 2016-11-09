@@ -325,4 +325,91 @@ class Main_controller extends CI_Controller {
         echo json_encode($result);
     }
 
+    /* This function will return all the registed patients in the system.
+     * ****************************************************************** */
+
+    public function get_patients() {
+        $page = intval($this->validate_fields($this->input->post('page')));
+        $rows = intval($this->validate_fields($this->input->post('rows')));
+
+        $results = $this->Main_model->get_patients_db($page, $rows);
+
+        echo json_encode($results);
+    }
+
+    /* This will save the patient into the system
+     * ********************************************** */
+
+    public function save_patient() {
+        $patient_data = array(
+            'name' => $this->validate_fields($this->input->post('name')),
+            'birth_date' => $this->validate_fields($this->input->post('birth_date')),
+            'address' => $this->validate_fields($this->input->post('address')),
+            'email' => $this->validate_fields($this->input->post('email')),
+            'gender' => $this->validate_fields($this->input->post('gender')),
+            'blood_group' => $this->validate_fields($this->input->post('blood_group')),
+            'age' => $this->validate_fields($this->input->post('age')),
+            'phone' => $this->validate_fields($this->input->post('phone')),
+        );
+
+        if (!empty($_FILES['upload_picture']['name'])) {
+            $config['upload_path'] = './patients_pictures/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = 2048;
+            $config['max_width'] = 0;
+            $config['max_height'] = 0;
+            $config['file_name'] = $patient_data['name'];
+
+            $this->upload->initialize($config);
+
+            if (!$this->upload->do_upload('upload_picture')) {
+                $error = array('error' => $this->upload->display_errors());
+                print_r($error);
+            } else {
+                $patient_data['picture'] = $this->upload->data('file_name');
+            }
+        }
+
+        if (empty($this->input->post('patient_id'))) {
+            $result = $this->Main_model->save_patient_db($patient_data);
+        } else {
+            $id = intval($this->validate_fields($this->input->post('patient_id')));
+            $result = $this->Main_model->update_patient_db($patient_data, $id);
+        }
+
+        echo json_encode($result);
+    }
+    
+     /* Delete the patient from the system.
+     * ********************************* */
+
+    function delete_patient() {
+        $patient_id = intval($this->validate_fields($this->input->get('patient_id')));
+
+        $result = $this->Main_model->delete_patient_db($patient_id);
+
+        if ($result) {
+            echo json_encode(array('success' => TRUE));
+        } else {
+            echo json_encode(array('success' => FALSE));
+        }
+    }
+    
+    /* Search through the records to get this Patient.
+     * ************************************************ */
+
+    public function search_patient() {
+        $search_item = $this->validate_fields($this->input->get('search_name'));
+        
+        $page = intval($this->input->post('page'));
+        $rows = intval($this->input->post('rows'));
+
+        $results = $this->Main_model->search_patient_db($search_item, $page, $rows);
+        if ($results) {
+            echo json_encode($results);
+        } else {
+            echo json_encode(array());
+        }
+    }
+
 }
