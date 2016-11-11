@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 08, 2016 at 04:43 
+-- Generation Time: Nov 11, 2016 at 03:18 
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -275,8 +275,10 @@ INSERT INTO `department` (`department_id`, `name`, `description`) VALUES
 (1, 'Doctor', 'Doctor'),
 (2, 'Inventory', 'Store items'),
 (3, 'Store Keeping', 'All tems are avaliable'),
-(5, 'Medicine', 'Drugs store'),
-(7, 'Doctors equipments', 'Doctors store equpments here');
+(9, 'Labs', 'equpiments entrin'),
+(5, 'Medicine', 'Drugs stores n eqip'),
+(8, 'Nurse equipments', 'nurses are dope'),
+(10, 'you lab', 'werew');
 
 -- --------------------------------------------------------
 
@@ -580,23 +582,23 @@ INSERT INTO `nurse` (`nurse_id`, `name`, `email`, `password`, `address`, `phone`
 CREATE TABLE `patient` (
   `patient_id` int(11) NOT NULL,
   `name` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `email` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `password` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `address` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `phone` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `sex` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `birth_date` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `age` int(11) NOT NULL,
-  `blood_group` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `account_opening_timestamp` int(11) NOT NULL
+  `email` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gender` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `age` int(3) DEFAULT NULL,
+  `blood_group` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `account_opening_timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `picture` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `patient`
 --
 
-INSERT INTO `patient` (`patient_id`, `name`, `email`, `password`, `address`, `phone`, `sex`, `birth_date`, `age`, `blood_group`, `account_opening_timestamp`) VALUES
-(1, 'OKELLO SAM', 'patient@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '            JINJA                                                        ', '', 'male', '-3600', 23, 'A+', 0);
+INSERT INTO `patient` (`patient_id`, `name`, `email`, `address`, `phone`, `gender`, `birth_date`, `age`, `blood_group`, `account_opening_timestamp`, `picture`) VALUES
+(3, 'Kasirye Wycliff peeing', 'w4wycliff@outlook.co', 'bunga gaba', '8383838', 'M', '2016-11-16', 10, 'B', '2016-11-09 17:41:49', 'Kasirye_Wycliff_peeing1.png');
 
 -- --------------------------------------------------------
 
@@ -1318,7 +1320,7 @@ ALTER TABLE `currency`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `diagnosis_report`
 --
@@ -1408,7 +1410,7 @@ ALTER TABLE `nurse`
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `patient_payments`
 --
