@@ -66,15 +66,13 @@
                 <a href="<?php echo site_url('Users/index') ?>"> <i class="fa fa-users"></i> <span>Users</span></a>
             </li>
 
-<!--            <li class="menu-list"><a href=""><i class="fa fa-tasks"></i> <span>Forms</span></a>
+            <li class="menu-list"><a href="javascript: undefined;"><i class="fa fa-archive"></i> <span>Inventory</span></a>
                 <ul class="child-list">
-                    <li><a href="form-layout.html"> Form Layouts</a></li>
-                    <li><a href="advanced-components.html"> Advanced Components</a></li>
-                    <li><a href="form-wizard.html"> Form Wizards</a></li>
-                    <li><a href="form-validation.html"> Form Validation</a></li>
-                    <li><a href="form-editor.html"> Editors</a></li>
+                    <li><a href="<?php echo site_url('Admin/categories') ?>"> <i class="fa fa-list"></i> Categories</a></li>
+                    <li><a href="<?php echo site_url('Admin/suppliers') ?>"> <i class="fa fa-users"></i> Suppliers</a></li>
+                    <li><a href="<?php echo site_url('Admin/drugs') ?>"> <i class="fa fa-medkit"></i> Drugs</a></li>
                 </ul>
-            </li>-->
+            </li>
 
 <!--            <li class="menu-list"><a href=""><i class="fa fa-bar-chart-o"></i> <span>Charts </span></a>
                 <ul class="child-list">

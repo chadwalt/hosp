@@ -257,10 +257,10 @@ class Main_model extends CI_Model {
 
     function search_patient_db($search_item, $page, $rows) {
         $offset = ($page - 1) * $rows;
-        
+
         if (!empty($search_item)) {
             $query = $this->db->query("SELECT * FROM patient  WHERE (name LIKE '%$search_item%') OR (email LIKE '%$search_item%')  OR (address LIKE '%$search_item%') LIMIT $offset, $rows");
-            
+
             if ($query) {
                 return $query->result_array();
             } else {
@@ -270,4 +270,97 @@ class Main_model extends CI_Model {
             return $this->get_patients_db($page, $rows);
         }
     }
+
+    /* Get all the categories in the database.
+     * ***************************************** */
+
+    public function get_categories_db() {
+        $this->db->order_by('name', 'ASC');
+        $query = $this->db->get('medicine_categorys');
+
+        return $query->result();
+    }
+
+    /* Get all the suppliers in the database.
+     * ***************************************** */
+
+    public function get_suppliers_db() {
+        $this->db->order_by('name', 'ASC');
+        $query = $this->db->get('medicine_suppliers');
+
+        return $query->result();
+    }
+
+    /* Return all drugs in the database to the calling method.
+     * ********************************************************* */
+
+    public function get_drugs_db($page, $rows) {
+        $offset = ($page - 1) * $rows;
+
+        //$this->db->limit($rows, $offset);
+        $query = $this->db->query("SELECT medicine.*, medicine_categorys.name AS category_name FROM medicine "
+                . "JOIN medicine_categorys ON medicine_categorys.id = medicine.category LIMIT $offset, $rows");
+        return $query->result();
+    }
+
+    /* Save the drug to the database.
+     * ************************************** */
+
+    public function save_drug_db($drug_array) {
+        $query = $this->db->insert('medicine', $drug_array);
+
+        if ($query) {
+            return array('success' => TRUE);
+        } else {
+            return array('success' => FALSE);
+        }
+    }
+
+    /* Save the drug to the database.
+     * ************************************** */
+
+    public function update_drug_db($drug_array, $id) {
+        $this->db->where('id', $id);
+        $query = $this->db->update('medicine', $drug_array);
+
+        if ($query) {
+            return array('success' => TRUE);
+        } else {
+            return array('success' => FALSE);
+        }
+    }
+
+    /* This function will be used to delete the drug from the system.
+     * ************************************************************ */
+
+    public function delete_drug_db($id) {
+        $this->db->where('id', $id);
+        $query = $this->db->delete('medicine');
+
+        if ($query) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /* Search through the database to the drug details.
+     * *************************************************** */
+
+    function search_drug_db($search_item, $page, $rows) {
+        $offset = ($page - 1) * $rows;
+
+        if (!empty($search_item)) {
+            $query = $this->db->query("SELECT * FROM medicine  WHERE (name LIKE '%$search_item%') LIMIT $offset, $rows");
+
+            if ($query) {
+                return $query->result_array();
+            } else {
+                return FALSE;
+            }
+        } else {
+            return $this->get_drugs_db($page, $rows);
+        }
+    }
+
 }

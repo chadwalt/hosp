@@ -379,8 +379,8 @@ class Main_controller extends CI_Controller {
 
         echo json_encode($result);
     }
-    
-     /* Delete the patient from the system.
+
+    /* Delete the patient from the system.
      * ********************************* */
 
     function delete_patient() {
@@ -394,13 +394,13 @@ class Main_controller extends CI_Controller {
             echo json_encode(array('success' => FALSE));
         }
     }
-    
+
     /* Search through the records to get this Patient.
      * ************************************************ */
 
     public function search_patient() {
         $search_item = $this->validate_fields($this->input->get('search_name'));
-        
+
         $page = intval($this->input->post('page'));
         $rows = intval($this->input->post('rows'));
 
@@ -412,4 +412,84 @@ class Main_controller extends CI_Controller {
         }
     }
 
+    /* Get all categories.
+     * *********************** */
+
+    public function get_categories() {
+        $results = $this->Main_model->get_categories_db();
+        echo json_encode($results);
+    }
+
+    /* Get all suppliers.
+     * *********************** */
+
+    public function get_suppliers() {
+        $results = $this->Main_model->get_suppliers_db();
+        echo json_encode($results);
+    }
+
+    /* Get all drugs in the system.
+     * *********************** ***** */
+
+    public function get_drugs() {
+        $page = $this->validate_fields($this->input->post('page'));
+        $rows = $this->validate_fields($this->input->post('rows'));
+
+        $results = $this->Main_model->get_drugs_db($page, $rows);
+        echo json_encode($results);
+    }
+
+    /* Save the drug in the database.
+     * ********************************* */
+
+    public function save_drug() {
+        //Loop through to get all the fields tags.
+        $drug_array = array();
+
+        foreach ($_REQUEST as $key => $value) {
+            $drug_array[$key] = $this->validate_fields($value);
+        }
+
+        if (empty($drug_array['id'])) {
+            $result = $this->Main_model->save_drug_db($drug_array);
+            echo json_encode($result);
+        } else {
+            $id = intval($drug_array['id']);
+
+            $result = $this->Main_model->update_drug_db($drug_array, $id);
+            echo json_encode($result);
+        }
+    }
+
+    /* Delete the Drug from the system.
+     * ********************************* */
+
+    function delete_drug() {
+        $id = intval($this->validate_fields($this->input->get('id')));
+
+        $result = $this->Main_model->delete_drug_db($id);
+
+        if ($result) {
+            echo json_encode(array('success' => TRUE));
+        } else {
+            echo json_encode(array('success' => FALSE));
+        }
+    }
+    
+    /* Search through the records to get this drug.
+     * ************************************************ */
+
+    public function search_drug() {
+        $search_item = $this->validate_fields($this->input->get('search_name'));
+
+        $page = intval($this->input->post('page'));
+        $rows = intval($this->input->post('rows'));
+
+        $results = $this->Main_model->search_drug_db($search_item, $page, $rows);
+        if ($results) {
+            echo json_encode($results);
+        } else {
+            echo json_encode(array());
+        }
+    }
 }
