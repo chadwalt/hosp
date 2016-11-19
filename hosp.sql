@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 11, 2016 at 03:18 
+-- Generation Time: Nov 19, 2016 at 11:53 
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -278,7 +278,9 @@ INSERT INTO `department` (`department_id`, `name`, `description`) VALUES
 (9, 'Labs', 'equpiments entrin'),
 (5, 'Medicine', 'Drugs stores n eqip'),
 (8, 'Nurse equipments', 'nurses are dope'),
-(10, 'you lab', 'werew');
+(11, 'computer science', 'new department'),
+(10, 'you lab', 'werew'),
+(12, 'Bio tech', 'This includes all lab equipments');
 
 -- --------------------------------------------------------
 
@@ -451,14 +453,28 @@ CREATE TABLE `language` (
 --
 
 CREATE TABLE `medicine` (
-  `medicine_id` int(11) NOT NULL,
-  `name` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `medicine_category_id` int(11) NOT NULL,
-  `description` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `price` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `manufacturing_company` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `status` longtext COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `batch_nbr` varchar(30) NOT NULL,
+  `category` varchar(30) NOT NULL,
+  `type` varchar(30) NOT NULL,
+  `mfg_date` date NOT NULL,
+  `exp_date` date NOT NULL,
+  `supplier` varchar(30) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `cost_price` varchar(12) NOT NULL,
+  `selling_price` varchar(12) NOT NULL,
+  `date_received` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medicine`
+--
+
+INSERT INTO `medicine` (`id`, `name`, `batch_nbr`, `category`, `type`, `mfg_date`, `exp_date`, `supplier`, `quantity`, `cost_price`, `selling_price`, `date_received`) VALUES
+(1, 'spirit', '3', '2', 'medial', '2016-11-19', '2016-11-24', '2', 3, '700', '60000', '2016-11-26'),
+(3, 'panadol', '3', '2', 'medical', '2016-11-25', '2016-11-30', '2', 7, '30', '4000', '2016-11-26'),
+(4, 'Aspriin', '3', '2', 'mecial', '2016-11-25', '2016-11-30', '2', 3, '5000', '39900', '2016-11-26');
 
 -- --------------------------------------------------------
 
@@ -471,6 +487,46 @@ CREATE TABLE `medicine_category` (
   `name` longtext COLLATE utf8_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medicine_categorys`
+--
+
+CREATE TABLE `medicine_categorys` (
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `description` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medicine_categorys`
+--
+
+INSERT INTO `medicine_categorys` (`id`, `name`, `description`) VALUES
+(2, 'Drugs store', 'all items in the drug store');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medicine_suppliers`
+--
+
+CREATE TABLE `medicine_suppliers` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(25) NOT NULL,
+  `address` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medicine_suppliers`
+--
+
+INSERT INTO `medicine_suppliers` (`id`, `name`, `phone`, `email`, `address`) VALUES
+(2, 'Nalunga stellar', '03383883', 'stella@gmail.com', 'ntinda');
 
 -- --------------------------------------------------------
 
@@ -1097,13 +1153,25 @@ ALTER TABLE `language`
 -- Indexes for table `medicine`
 --
 ALTER TABLE `medicine`
-  ADD PRIMARY KEY (`medicine_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `medicine_category`
 --
 ALTER TABLE `medicine_category`
   ADD PRIMARY KEY (`medicine_category_id`);
+
+--
+-- Indexes for table `medicine_categorys`
+--
+ALTER TABLE `medicine_categorys`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medicine_suppliers`
+--
+ALTER TABLE `medicine_suppliers`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `message`
@@ -1320,7 +1388,7 @@ ALTER TABLE `currency`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `diagnosis_report`
 --
@@ -1370,12 +1438,22 @@ ALTER TABLE `language`
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `medicine_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `medicine_category`
 --
 ALTER TABLE `medicine_category`
   MODIFY `medicine_category_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medicine_categorys`
+--
+ALTER TABLE `medicine_categorys`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `medicine_suppliers`
+--
+ALTER TABLE `medicine_suppliers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `message`
 --
