@@ -682,7 +682,7 @@
 <script src="<?php echo base_url(); ?>libraries/js/modernizr.min.js"></script>
 
 <!--Nice Scroll-->
-<!--<script src="<?php echo base_url(); ?>libraries/js/jquery.nicescroll.js" type="text/javascript"></script>-->
+<script src="<?php echo base_url(); ?>libraries/js/jquery.nicescroll.js" type="text/javascript"></script>
 
 <!--right slidebar-->
 <script src="<?php echo base_url(); ?>libraries/js/slidebars.min.js"></script>
@@ -728,17 +728,18 @@
 <script src="<?php echo base_url(); ?>libraries/js/jquery-countTo/jquery.countTo.js"  type="text/javascript"></script>
 
 <!--owl carousel-->
-<script src="<?php echo base_url(); ?>libraries/js/owl.carousel.js"></script>
+<!--<script src="<?php echo base_url(); ?>libraries/js/owl.carousel.js"></script>-->
 
 <!--Easyui Scripts-->
 <script type="text/javascript" src="<?php echo base_url(); ?>libraries/easyui/jquery.easyui.min.js"></script>
 
+<!--common scripts for all pages-->
+
+<script src="<?php echo base_url(); ?>libraries/js/scripts.js"></script>
+
 <!--Easyui Scripts-->
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/mine/js/users.js"></script>
 
-<!--common scripts for all pages-->
-
-<!--<script src="<?php echo base_url(); ?>libraries/js/scripts.js"></script>-->
 <script>
     var base_url = "<?php echo base_url(); ?>";
     var site_url = "<?php echo site_url(); ?>";

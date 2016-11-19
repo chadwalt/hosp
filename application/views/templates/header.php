@@ -15,31 +15,34 @@
 
         <!--vector maps -->
         <!--<link rel="stylesheet" href="js/vector-map/jquery-jvectormap-1.1.1.css">-->
-        
-        
+
+
 
         <!--right slidebar-->
-        <link href="<?php echo base_url();?>libraries/css/slidebars.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>libraries/css/slidebars.css" rel="stylesheet">
 
         <!--switchery-->
-        <link href="<?php echo base_url();?>libraries/js/switchery/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="<?php echo base_url(); ?>libraries/js/switchery/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
 
         <!--jquery-ui-->
-        <link href="<?php echo base_url();?>libraries/js/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" />
+        <!--<link href="<?php // echo base_url(); ?>libraries/js/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" />-->
 
         <!--iCheck-->
-        <link href="<?php echo base_url();?>libraries/js/icheck/skins/all.css" rel="stylesheet">
+        <!--<link href="<?php // echo base_url(); ?>libraries/js/icheck/skins/all.css" rel="stylesheet">-->
 
-        <link href="<?php echo base_url();?>libraries/css/owl.carousel.css" rel="stylesheet">
+        <!--<link href="<?php // echo base_url(); ?>libraries/css/owl.carousel.css" rel="stylesheet">-->
 
 
         <!--common style-->
-        <link href="<?php echo base_url();?>libraries/css/style.css" rel="stylesheet">
-        <link href="<?php echo base_url();?>libraries/css/style-responsive.css" rel="stylesheet">
-        
+        <link href="<?php echo base_url(); ?>libraries/css/style.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>libraries/css/style-responsive.css" rel="stylesheet">
+
+        <!--theme color layout-->
+        <link href="<?php echo base_url(); ?>libraries/css/layout-theme-two.css" rel="stylesheet">
+
         <!--Easyui css-->
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>libraries/easyui/themes/default/easyui.css">
-        <!--<link rel="stylesheet" type="text/css" href="<?php //echo base_url();     ?>libraries/easyui/themes/ui/ui-sunny/easyui.css">-->
+        <!--<link rel="stylesheet" type="text/css" href="<?php //echo base_url();      ?>libraries/easyui/themes/ui/ui-sunny/easyui.css">-->
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>libraries/easyui/themes/icon.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

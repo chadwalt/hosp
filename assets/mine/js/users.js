@@ -8,28 +8,31 @@
 var user_form_url;
 
 $(function () {
-    
+    $('.toggle-btn').click(function () {
+        $('#users_dg').datagrid({width: '100%'});
+    });
+
     //Get the inactive and active users total.
     $('#users_dg').datagrid({
-        onLoadSuccess: function(data){
+        onLoadSuccess: function (data) {
             var rows = data.rows;
             var active = 0;
             var inactive = 0;
-            
-            $.each(rows, function(index, value){
-                if(parseInt(value.active_status) === 0){
+
+            $.each(rows, function (index, value) {
+                if (parseInt(value.active_status) === 0) {
                     active++;
                 } else {
                     inactive++;
                 }
             });
             //console.log(data);
-            
+
             $("#active_users_dash").html('Active Users: ' + active);
             $("#inactive_users_dash").html('Inactive Users: ' + inactive);
         }
     });
-    
+
     $('#username').blur(function () {
         var username = $(this).val();
 
@@ -186,7 +189,7 @@ $(function () {
             $('#save_student').prop('disabled', true) // Disable the save button;
 
             $('#user_form').form('load', row);
-            
+
 
             $('#phone').val(row.contact);
 

@@ -8,6 +8,10 @@
 $(function () {
     var base_url = "http://localhost/hosp/";
     var site_url = "http://localhost/hosp/index.php/";
+    
+    $('.toggle-btn').click(function () {
+        $('#departments_dg').datagrid({width: '100%'});
+    });
 
     $('#departments_dg').edatagrid({
         url: site_url + 'Admin/get_departments',

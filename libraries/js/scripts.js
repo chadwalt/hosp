@@ -86,8 +86,8 @@
          adjustMainContentHeight();
       }
 
-       var owl = $("#news-feed").data("owlCarousel");
-       owl.reinit();
+       //var owl = $("#news-feed").data("owlCarousel");
+       //owl.reinit();
 
    });
    

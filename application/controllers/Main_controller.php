@@ -30,7 +30,7 @@ class Main_controller extends CI_Controller {
      * ******************************************************* */
 
     public function check_session() {
-        if (!$this->session->id) {
+        if (!$this->session->user_id) {
             redirect('Main_controller/index');
         }
     }

@@ -8,6 +8,10 @@
 $(function () {
     var base_url = "http://localhost/hosp/";
     var site_url = "http://localhost/hosp/index.php/";
+    
+    $('.toggle-btn').click(function () {
+        $('#patients_dg').datagrid({width: '100%'});
+    });
 
     //Make the text fields wider.
     $("#patient_form input").not("input[type='radio']").css('width', '200px');
