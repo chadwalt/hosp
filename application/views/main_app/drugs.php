@@ -57,12 +57,12 @@
                     </div>
                     <!-- End of view users datagrid-->
 
-                    <div class="easyui-dialog" id="drug_dlg" data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" style="width: 700px; height: auto;top: 40px;" buttons="#drug_info_toolbar">
+                    <div class="easyui-dialog" id="drug_dlg" data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" style="width: 900px; height: auto;top: 40px;" buttons="#drug_info_toolbar">
                         <form method="POST" name="drug_form" id="drug_form" enctype="multipart/form-data" action="<?php echo site_url('Main_controller/save_drug') ?>">
-                            <div class="row" style="margin-top: 20px; width: 690px;" >
+                            <div class="row" style="margin-top: 20px; width: 100%;">
                                 <!--This div will hold the student's picture-->                                
                                 <input type="hidden" class="form-control" name="id" id="id" />
-                                <div class="col-sm-7" style="margin-left: 40px;">
+                                <div class="col-sm-6" style="margin-left: 10px; ">
                                     <div class="form-group">
                                         <label for="name" class="col-sm-4 control-label">Name</label>
                                         <div class="col-sm-8">
@@ -117,8 +117,10 @@
                                             <input type="date" name="exp_date" style="width: 210px;" class="easyui-datebox" data-options="required:true,formatter:myformatter,parser:myparser" id="exp_date">
                                         </div>
                                     </div>   
-
                                     <br>
+                                </div>
+                                <div class="col-sm-5" style="margin-left: 20px;">
+                                    <!--<br>-->
                                     <div class="form-group">
                                         <label for="supplier" class="col-sm-4 control-label">Supplier</label>
                                         <div class="col-sm-8">

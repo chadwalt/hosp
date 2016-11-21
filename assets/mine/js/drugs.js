@@ -124,6 +124,8 @@ $(function () {
 
         if (row) {
             $('#drug_form').form('load', row);
+            $('#supplier').combogrid('setValue', row.supplier);
+            $('#category').combobox('setValue', row.category);
             $("#drug_dlg").dialog('open').dialog('setTitle', 'Edit Drug');
         } else {
             $.messager.show({title: 'Info', msg: 'Please select drug to view'});
