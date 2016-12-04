@@ -492,4 +492,67 @@ class Main_controller extends CI_Controller {
             echo json_encode(array());
         }
     }
+    
+    
+    
+    /* Get all the wards in the system
+     * *************************************** */
+
+    public function get_wards() {
+        $page = $this->validate_fields($this->input->post('page'));
+        $rows = $this->validate_fields($this->input->post('rows'));
+
+        $results = $this->Main_model->get_wards_db($page, $rows);
+        echo json_encode($results);
+    }
+
+    /* Save/Udpate the ward in the system
+     * *************************************** */
+
+    public function save_ward() {
+        $ward_array = array(
+            'name' => $this->validate_fields($this->input->post('name')),
+            'description' => $this->validate_fields($this->input->post('description'))
+        );
+
+        if (empty($ward_array['name'])) {
+            return;
+        }
+
+        if (empty($this->input->post('ward_id'))) {
+            $result = $this->Main_model->save_ward_db($ward_array);
+            echo json_encode($result);
+        } else {
+            $id = intval($this->validate_fields($this->input->post('ward_id')));
+
+            $result = $this->Main_model->update_ward_db($ward_array, $id);
+            echo json_encode($result);
+        }
+    }
+
+    /* Delete the ward in the  system
+     * *************************************** */
+
+    public function delete_ward() {
+        $id = intval($this->validate_fields($this->input->post('ward_id')));
+
+        $results = $this->Main_model->delete_ward_db($id);
+        echo json_encode($results);
+    }
+
+    /* Search through the records to get this ward.
+     * ************************************************ */
+
+    public function search_ward() {
+        $search_item = $this->validate_fields($this->input->get('search_name'));
+        $page = intval($this->validate_fields($this->input->post('page')));
+        $rows = intval($this->validate_fields($this->input->post('rows')));
+
+        $results = $this->Main_model->search_ward_db($search_item, $page, $rows);
+        if ($results) {
+            echo json_encode($results);
+        } else {
+            echo json_encode(array());
+        }
+    }
 }

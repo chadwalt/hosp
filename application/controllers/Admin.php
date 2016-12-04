@@ -277,4 +277,15 @@ class Admin extends CI_Controller {
         $this->load->view('main_app/drugs');
     }
 
+    /* View the Wards and the beds page.
+     * *********************************** */
+
+    public function wards() {
+        $this->check_session();
+
+        ## Call the header function to display the headers.
+        $this->load_header();
+        $this->load->view('main_app/wards');
+    }
+
 }

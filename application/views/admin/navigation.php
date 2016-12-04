@@ -61,6 +61,10 @@
             <li>
                 <a href="<?php echo site_url('Admin/patients') ?>"> <i class="fa fa-user"></i> <span>Patients</span></a>
             </li>
+            
+            <li>
+                <a href="<?php echo site_url('Admin/wards') ?>"> <i class="fa  fa-krw"></i> <span>Wards</span></a>
+            </li>
 
             <li>
                 <a href="<?php echo site_url('Users/index') ?>"> <i class="fa fa-users"></i> <span>Users</span></a>

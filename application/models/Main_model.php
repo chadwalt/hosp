@@ -362,5 +362,72 @@ class Main_model extends CI_Model {
             return $this->get_drugs_db($page, $rows);
         }
     }
+    
+    /* Get all the wards in the database.
+     * ***************************************** */
+
+    public function get_wards_db($page, $rows) {
+        $offset = ($page - 1) * $rows;
+
+        $this->db->limit($offset, $rows);
+        $query = $this->db->get('ward');
+
+        return $query->result();
+    }
+
+    /* Save the wards to the database.
+     * ************************************** */
+
+    public function save_ward_db($ward_array) {
+        $this->db->insert('ward', $ward_array);
+        $ward_id = $this->db->insert_id();
+
+        $ward_array['ward_id'] = $ward_id;
+        return $ward_array;
+    }
+
+    /* Update the ward in the database
+     * ***************************************** */
+
+    public function update_ward_db($ward_array, $id) {
+        $this->db->where('ward_id', $id);
+        $this->db->update('ward', $ward_array);
+
+        $ward_array['ward_id'] = $id;
+        return $ward_array;
+    }
+
+    /* Delete the ward from the database
+     * ****************************************** */
+
+    public function delete_ward_db($id) {
+        $this->db->where('ward_id', $id);
+        $query = $this->db->delete('ward');
+
+        if ($query) {
+            return array('success' => TRUE);
+        } else {
+            return array('success' => FALSE);
+        }
+    }
+
+    /* Search through the database to get the specified ward.
+     * ************************************************************** */
+
+    function search_ward_db($search_item, $page, $rows) {
+        $offset = ($page - 1) * $rows;
+
+        if (!empty($search_item)) {
+            $query = $this->db->query("SELECT * FROM ward  WHERE (name LIKE '%$search_item%') OR (description LIKE '%$search_item%') LIMIT $offset, $rows");
+
+            if ($query) {
+                return $query->result_array();
+            } else {
+                return FALSE;
+            }
+        } else {
+            return $this->get_wards_db($page, $rows);
+        }
+    }
 
 }
