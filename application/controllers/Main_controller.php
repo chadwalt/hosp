@@ -7,8 +7,20 @@
 
 class Main_controller extends CI_Controller {
 
+    private $data = array();
+
     function __construct() {
         parent::__construct();
+    }
+
+    public function __set($name, $value) {
+        $this->data[$name] = $value;
+    }
+
+    public function __get($name) {
+        if (array_key_exists($name, $this->data)) {
+            return $this->data[$name];
+        }
     }
 
     /* This function will be used to validate submited data. Eg through POST.
